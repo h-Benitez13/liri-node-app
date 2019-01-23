@@ -1,46 +1,47 @@
-require("dotenv").config();
+// OMDB 
+// make it work then move down to the requirements 
+var axios = require ("axios");
 
-var keys= require("./keys.js");
-var spotify = new Spotify(keys.spotify);
+var user =  process.argv;
 
+var movieName = "";
 
-
-// node liri.js concert-this <artist/band name here>
-// serach Bands in town artist API and render the foloowing info
-// 1. name of the venue
-// 2. venue location
-// 3. date fo the event (use moment to format this at "MM/DD/YYYY")
-console.log ("concert-this");
-
-
-// node liri.js spotify-this-song '<song name here>' 
-// show the following info about the song in terminal/bash window
-// 1. Artist(s)
-// 2. the Song's name 
-// 3. a preview link of the song from spotify
-// 4. the album that the song is from
-// ** if no song is provided then your program will default "The Sing " by Ace of Base
-console.log("spotify-this-song");
+for (var i = 2; i < user.length; i++) {
+    movieName += " " + user[i];
+ 
+}
 
 
-// node liri.js movie-this '<movie name here>'
-// output the foloowing information to your terminal/bash window:
-// 1. title of the movie
-// 2. year movie came out 
-// 3. IMDB rating of the movie
-// 4. rotten tomatoes rating of the movie
-// 5. country where the movie was produced
-// 6. language of the movie
-// 7. plot of the movie
-// 8. actors in the movie
-// ** if the user doesnt type in a movie" output data for the movie 'Mr. Nobody'
-// ***API KEY : trilogy
-console.log("movie-this");
+movieName = movieName.trim();
+console.log(movieName)
 
+var queryName = movieName.replace(/ /g,"+");
 
-// node liri.js do-what-it-says
-// using fs node package, liri will take the text inside of random.txt 
-// and then us it to callone of the Liri's commands
-// it should run "spotify-this-song" for "I want it that way" as follows the text in random.js
-// edit random.txt to test out the feature for movie-this and concert-this
-console.log("do-what-it-says");
+var queryUrl = "http://www.omdbapi.com/?t=" + queryName + "&y=&plot=short&apikey=trilogy";
+
+console.log(queryUrl);
+
+axios
+.get(queryUrl)
+
+.then(
+
+    function(response){
+//    * Title of the movie.
+        console.log("Movie Title: " + response.data.Title);
+//    * Year the movie came out.
+        console.log("Year the movie came out: " +response.data.Year);
+//    * IMDB Rating of the movie.
+        console.log("IMDB Rating: " + response.data.imdbRating);
+//    * Rotten Tomatoes Rating of the movie.
+        console.log("Rotten Tomatoes Rating: " + response.data.Ratings[2].Value);
+//    * Country where the movie was produced.
+        console.log("The country the movie was produced in: " + response.data.Country);
+//    * Language of the movie.
+        console.log("Language of the movie: " +response.data.Language);
+//    * Plot of the movie.
+        console.log("Movie Plot: " + response.data.Plot);
+//    * Actors in the movie.
+        console.log("Actors/Actresses: " + response.data.Actors);
+    }
+)
