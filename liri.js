@@ -1,3 +1,8 @@
+// dotenv so that my precious keys dont go up into github
+require('dotenv').config();
+
+// =====================================================
+
 // OMDB 
 // make it work then move down to the requirements 
 // var axios = require ("axios");
@@ -10,7 +15,7 @@
 
 // for (var i = 2; i < user.length; i++) {
 //     movieName += " " + user[i];
- 
+
 // }
 
 
@@ -48,49 +53,44 @@
 //     }
 // )
 
+// =================================================================
 
 // the BandsInTown api
 
-var axios = require ("axios");
-var moment = require ("moment");
+var axios = require("axios");
+var moment = require("moment");
 moment().format();
 
-var user =  process.argv;
+var user = process.argv;
 
 var bandName = "";
 
 for (var i = 2; i < user.length; i++) {
     bandName += " " + user[i];
- 
+
 }
 
 
 bandName = bandName.trim();
 console.log(bandName)
 
-var querySwitch = bandName.replace(/ /g,"+");
+var querySwitch = bandName.replace(/ /g, "+");
 var queryUrl = "https://rest.bandsintown.com/artists/" + querySwitch + "/events?app_id=codingbootcamp"
 
 
 
-axios 
+axios
     .get(queryUrl)
-    .then (function (bandResponse){
-        
+    .then(function (bandResponse) {
+
         // console.log(bandResponse.data[1]);
         var venueInfo = bandResponse.data[1];
         console.log("Name of the venue " + venueInfo.venue.name);
         console.log("Venue located at " + venueInfo.venue.city + "," + venueInfo.venue.region);
         console.log("Event date " + moment(venueInfo.datetime).format("MM/DD/YYYY"));
-
-        
-        
-        
-
-
-
-
         // name of the venue
         // venue location 
         // date of the event (use moment to format this as "MM/DD/YYYY");
-    })
+    }
+    );
+// ===============================================
