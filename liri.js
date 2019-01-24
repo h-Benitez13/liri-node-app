@@ -52,6 +52,8 @@
 // the BandsInTown api
 
 var axios = require ("axios");
+var moment = require ("moment");
+moment().format();
 
 var user =  process.argv;
 
@@ -75,11 +77,14 @@ axios
     .get(queryUrl)
     .then (function (bandResponse){
         
-        console.log(bandResponse.data[1]);
+        // console.log(bandResponse.data[1]);
         var venueInfo = bandResponse.data[1];
         console.log("Name of the venue " + venueInfo.venue.name);
-        console.log("Venue located at " + venueInfo.venue.city + "," + venueInfo.region);
-        console.log("Event date " + venueInfo.datetime);
+        console.log("Venue located at " + venueInfo.venue.city + "," + venueInfo.venue.region);
+        console.log("Event date " + moment(venueInfo.datetime).format("MM/DD/YYYY"));
+
+        
+        
         
 
 
