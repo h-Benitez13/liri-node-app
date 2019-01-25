@@ -2,26 +2,33 @@
 require('dotenv').config();
 
 // =====================================================
+var fs = require("fs");
 var axios = require("axios");
 var moment = require("moment");
 moment().format();
+
+var keys = require("keys");
+var spotify = new spotify(keys.spotify);
+
 
 var action = process.argv[2];
 var input = process.argv.slice(3).join(" ");
 
 switch (input, action) {
     case "movie-this":
-        if(input !== "") {
+        if (input !== "") {
             movieTime(input);
-        } else {
+        } 
+        else {
             input = "Mr. Nobody"
             movieTime(input);
         }
-    
-        movieTime(input);
         break;
     case "concert-this":
         band();
+        break;
+    case "do-what-it-says":
+        doWhat();
         break;
 }
 
@@ -32,7 +39,7 @@ function movieTime() {
 
     var queryUrl = "http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy";
 
-    console.log(queryUrl);
+    
 
     axios
         .get(queryUrl)
@@ -40,22 +47,24 @@ function movieTime() {
         .then(
 
             function (response) {
+                var movieD =response.data;
+                
                 //    * Title of the movie.
-                console.log("Movie Title: " + response.data.Title);
+                console.log("Movie Title: " + movieD.Title 
                 //    * Year the movie came out.
-                console.log("Year the movie came out: " + response.data.Year);
+                          +  "\nYear the movie came out: " + movieD.Year
                 //    * IMDB Rating of the movie.
-                console.log("IMDB Rating: " + response.data.imdbRating);
+                          +  "\nIMDB Rating: " + movieD.imdbRating
                 //    * Rotten Tomatoes Rating of the movie.
-                console.log("Rotten Tomatoes Rating: " + response.data.Ratings[2].Value);
+                          +  "\nRotten Tomatoes Rating: " + movieD.Ratings[2].Value
                 //    * Country where the movie was produced.
-                console.log("The country the movie was produced in: " + response.data.Country);
+                          +  "\nThe country the movie was produced in: " + movieD.Country
                 //    * Language of the movie.
-                console.log("Language of the movie: " + response.data.Language);
+                          +  "\nLanguage of the movie: " + movieD.Language
                 //    * Plot of the movie.
-                console.log("Movie Plot: " + response.data.Plot);
+                          +  "\nMovie Plot: " + movieD.Plot
                 //    * Actors in the movie.
-                console.log("Actors/Actresses: " + response.data.Actors);
+                          +  "\nActors/Actresses: " + movieD.Actors);
             }
         )
 }
@@ -84,5 +93,23 @@ function band() {
             // date of the event (use moment to format this as "MM/DD/YYYY");
         }
         );
+}
+
+function doWhat() {
+    fs.readFile("random.txt", "utf8", function (error, data) {
+        
+
+        if (error) {
+            return console.log(" yo my man...wasss good " + error);
+        }
+
+        // var dataArr = data.split(",");
+       console.log(data);
+       var userAction = data[1];
+
+        if (userAction === "movie-this") {
+            movieTime(userInput);
+        }
+    });
 }
 // // ===============================================
