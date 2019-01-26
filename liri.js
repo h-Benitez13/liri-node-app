@@ -149,6 +149,7 @@ function band() {
 
             // console.log(bandResponse.data);
             var venueInfo = bandResponse.data[1];
+            console.log("Band Search: " + input);
             console.log("Name of the venue " + venueInfo.venue.name);
             console.log("Venue located at " + venueInfo.venue.city + "," + venueInfo.venue.region);
             console.log("Event date " + moment(venueInfo.datetime).format("MM/DD/YYYY") + "\n");
