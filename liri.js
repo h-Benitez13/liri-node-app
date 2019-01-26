@@ -16,71 +16,76 @@ var spotify = new Spotify(keys.spotify);
 var action = process.argv[2];
 var input = process.argv.slice(3).join(" ");
 
-switch (input, action) {
-    case "movie-this":
-        if (input !== "") {
-            movieTime(input);
-        }
-        else {
-            input = "Mr. Nobody"
-            movieTime(input);
-        }
-        break;
-    case "concert-this":
-        if(input !==""){
-            band();
-        }
-        else{
-            input= "Chainsmokers"
-            band();
-        }
-        break;
-    case "do-what-it-says":
-        doWhat();
-        break;
-    case "spotify-this-song":
-        if(input !== ""){
-            spofityPlay();
-        }else {
-            input="At your best"
-            spofityPlay();
-        }
-        break;
-}
+    switch (input, action) {
+        case "movie-this":
+            if (input !== "") {
+                movieTime(input);
+            }
+            else {
+                input = "Mr. Nobody"
+                movieTime(input);
+            }
+            break;
+        case "concert-this":
+            if (input !== "") {
+                band();
+            }
+            else {
+                input = "Chainsmokers"
+                band();
+            }
+            break;
+        case "spotify-this-song":
+            if (input !== "") {
+                spofityPlay();
+            } else {
+                input = "The Sign"
+                spofityPlay();
+            }
+            break;
+        case "do-what-it-says":
+            doWhat();
+            break;
+
+
+    }
+
 
 // spotify
 // make it work 
 function spofityPlay() {
     spotify
-  .search({ type: 'track', query: input })
-  .then(function(data) {
-    console.log(
-        "\n ========== Spotify Search ==========\n"
-    )
+        .search({ type: 'track', query: "\" " + input + "\" " })
+        .then(function (data) {
+            console.log(
+                "\n ========== Spotify Search ==========\n"
+            )
 
-    // console.log(data);
-    // The song's name
-    // A preview link of the song from Spotify
-    // The album that the song is from
-    //Artist(s)
-    // console.log(data.tracks.items[1])
-    var song = data.tracks.items[1];
-    console.log("Song Search: " + song.album.name);
-    console.log("Want a quick listen, click here: " + song.external_urls.spotify)
-    console.log("The Song is in Album: " + song.album.name);
-    console.log("Artist(s): " +song.artists[0].name);
-    // ARTISTS VS ALBUM
-    // ALBUM: given to us as an object allows us to call on it normally
-    // ARISTS: looks like an object but its really an array with an object
-    // nested inside (sneaky bitch.)
-    // for the artist name you have to call the array FIRST then the object
-    
-})
-  .catch(function(err) {
-    return console.log('Error occurred: ' + err);
+            // console.log(data);
+            // The song's name
+            // A preview link of the song from Spotify
+            // The album that the song is from
+            //Artist(s)
+            // console.log(data.tracks.items[1])
+            var song = data.tracks.items[1];
+            console.log("Song Search: " + song.album.name);
+            console.log("Want a quick listen, click here: " + song.external_urls.spotify)
+            console.log("The Song is in Album: " + song.album.name);
+            console.log("Artist(s): " + song.artists[0].name + "\n");
 
-  });
-   
+            // ARTISTS VS ALBUM
+            // ALBUM: given to us as an object allows us to call on it normally
+            // ARISTS: looks like an object but its really an array with an object
+            // nested inside (sneaky bitch.)
+            // for the artist name you have to call the array FIRST then the object
+
+        })
+        .catch(function (err) {
+            console.log('Error occurred: '+ err);
+            
+
+        });
+
 
 }
 
@@ -128,7 +133,6 @@ function movieTime() {
 
 // =================================================================
 
-
 // the BandsInTown api
 function band() {
 
@@ -147,7 +151,7 @@ function band() {
             var venueInfo = bandResponse.data[1];
             console.log("Name of the venue " + venueInfo.venue.name);
             console.log("Venue located at " + venueInfo.venue.city + "," + venueInfo.venue.region);
-            console.log("Event date " + moment(venueInfo.datetime).format("MM/DD/YYYY")+"\n");
+            console.log("Event date " + moment(venueInfo.datetime).format("MM/DD/YYYY") + "\n");
             // name of the venue
             // venue location 
             // date of the event (use moment to format this as "MM/DD/YYYY");
@@ -158,32 +162,19 @@ function band() {
 function doWhat() {
     fs.readFile("random.txt", "utf8", function (error, data) {
 
-        console.log(
-            "\n ========== SURRRRPRISE ==========\n"
-        )
-
         if (error) {
             return console.log(" yo my man...wasss good " + error);
         }
+        console.log(
+            "\n ========== SURRRRPRISE =========="
+        )
+        console.log("\nYou dont even know what's about to go down");
 
-            var dataArr = data.split(",");
-            
-            console.log(dataArr[2]);
-        
 
-        
-        
-       
-
-        if (input === 'spotify-this-song') {
-            spofityPlay();
-        }
-        if (input === "movie-this"){
-            movieTime();
-        }
-        if(input === "concert-this"){
-            band(dataArr[1]);
-        }
+        var dataArr = data.split(",");
+        action = dataArr[0];
+        input = dataArr[1];
+        spofityPlay();
     });
 }
 // // ===============================================
