@@ -46,8 +46,18 @@ var input = process.argv.slice(3).join(" ");
         case "do-what-it-says":
             doWhat();
             break;
-
-
+        case "the-roof-the-roof":
+            console.log("\nTHE ROOF IS ON FIRE, WE DONT NEED NO WATER, LET THAT MO...\n");
+            console.log("\nJust kidding! HOPE YOU ENJOYED!\n");
+            break;
+        default: 
+        console.log("\nwoah woah woah there... waaaterrryou doing?\n" +
+                    "\nYou need to choose from one of the commands to watch this baby run smoooothly\n"+
+                    "Possible commands:\n "+
+                    "\n1.spotify-this-song\n" + "\n2.concert-this\n" + "\n3.movie-this\n" +
+                    "\n4.do-what-it-says\n" +
+                    "\n5.the-roof-the-roof"
+                    )
     }
 
 
@@ -176,6 +186,7 @@ function doWhat() {
         action = dataArr[0];
         input = dataArr[1];
         spofityPlay();
+        
     });
 }
 // // ===============================================
