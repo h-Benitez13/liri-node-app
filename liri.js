@@ -49,6 +49,7 @@ var input = process.argv.slice(3).join(" ");
         case "the-roof-the-roof":
             console.log("\nTHE ROOF IS ON FIRE, WE DONT NEED NO WATER, LET THAT MO...\n");
             console.log("\nJust kidding! HOPE YOU ENJOYED!\n");
+            console.log("\nBYE BYE!\n")
             break;
         default: 
         console.log("\nwoah woah woah there... waaaterrryou doing?\n" +
