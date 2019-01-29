@@ -104,16 +104,16 @@ When the user inputs the second command: ```the-roof-the-roof```, the output wil
 	-the finishing lyrics to a classic hip-hop song
 	-thank the user for using LIRI
 	-send them on their way with a peaceful BYE BYE
-
-
+	
 ![Demo](https://user-images.githubusercontent.com/43594007/51878656-66bb3480-233e-11e9-9cd4-51dbc42bd2c5.gif)
 
-
-# The bugs and future improvements
+The bugs and improvements
+=======================
 
 | Spotify        | Bands In Town           | Do-what-it-says  |
 | ------------- |:-------------:| -----:|
-| song matches are exact     | touring schedule| one command: spotify-this-song |
+| song matches are exact     | touring schedule| one command: spotify-this-song | 
+
 
 - The spotify api outputs multiple possible answers for one user search
 as of now, I hard coded so it would only print one option
@@ -122,3 +122,5 @@ for future improvements, I would hard code if the err message populates to alert
 the artist is not touring at the moment
 - do-what-it-says command only reads the spotify api,
 I was not able to adjust to the other possible commands but will put to do so in the future
+
+![alt text](https://user-images.githubusercontent.com/43594007/51882662-b1907880-234d-11e9-8afd-497f4be42602.png) 
